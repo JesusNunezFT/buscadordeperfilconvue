@@ -71,19 +71,19 @@ export default {
 </script>
 
 <template>
-  <div class="container d-flex justify-content-center align-items-center">
+  <div class="container w-100 p-3 d-flex justify-content-center align-items-center">
     <div
-      class="card bg-secondary bg-gradient shadow-5-strong"
+      class="card w-50 bg-secondary bg-gradient shadow-5-strong"
       style="width: 18rem"
     >
       <img
-        src="https://mdbcdn.b-cdn.net/img/new/standard/city/062.webp"
-        class="card-img-top"
+        :src="profile?.picture?.large"
+        class="card-img-top shadow-5-strong"
         alt="Chicago Skyscrapers"
       />
       <div class="card-body">
         <h5 class="card-title">Nombre:</h5>
-        <p>{{ profile?.name?.first }}</p>
+        <p>{{`${profile?.name?.first} ${profile?.name?.last}`}}</p>
         <div>
           <i
             @click="handleFav"
