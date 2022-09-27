@@ -38,52 +38,48 @@ export default {
       this.handleNat(perfiles);
       this.handleFn(perfiles);
       this.handleFr(perfiles);
-      },
+    },
 
     handleFiltro() {
-    let perfiles_filtrados = this.profiles;
+      let perfiles_filtrados = this.profiles;
+      if (this.name) {
+        perfiles_filtrados = perfiles_filtrados.filter((perfil) =>
+          perfil.name.first.toLowerCase().includes(this.name.toLowerCase())
+        );
+      }
 
-    if (this.name) {
-      perfiles_filtrados = perfiles_filtrados.filter((perfil) =>
-        perfil.name.first.toLowerCase().includes(this.name.toLowerCase())
-      );
-    }
+      if (this.selectedGender) {
+        perfiles_filtrados = perfiles_filtrados.filter(
+          (perfil) => perfil.gender == this.selectedGender
+        );
+      }
 
-    if (this.selectedGender) {
-      perfiles_filtrados = perfiles_filtrados.filter(
-        (perfil) => perfil.gender == this.selectedGender
-      );
-    }
+      if (this.selectedAge) {
+        perfiles_filtrados = perfiles_filtrados.filter(
+          (perfil) => perfil.dob.age == this.selectedAge
+        );
+      }
 
-    if (this.selectedAge) {
-      perfiles_filtrados = perfiles_filtrados.filter(
-        (perfil) => perfil.dob.age == this.selectedAge
-      );
-    }
+      if (this.selectedNat) {
+        perfiles_filtrados = perfiles_filtrados.filter(
+          (perfil) => perfil.nat == this.selectedNat
+        );
+      }
 
-    if (this.selectedNat) {
-      perfiles_filtrados = perfiles_filtrados.filter(
-        (perfil) => perfil.nat == this.selectedNat
-      );
-    }
+      if (this.selectedFn) {
+        perfiles_filtrados = perfiles_filtrados.filter(
+          (perfil) => perfil.dob.date == this.selectedFn
+        );
+      }
 
-    if (this.selectedFn) {
-      perfiles_filtrados = perfiles_filtrados.filter(
-        (perfil) => perfil.dob.date == this.selectedFn
-      );
-    }
+      if (this.selectedFr) {
+        perfiles_filtrados = perfiles_filtrados.filter(
+          (perfil) => perfil.registered.date == this.selectedFr
+        );
+      }
 
-    if (this.selectedFr) {
-      perfiles_filtrados = perfiles_filtrados.filter(
-        (perfil) => perfil.registered.date == this.selectedFr
-      );
-    }
-
-    this.FilterProfile = perfiles_filtrados 
-    
-  },
-
-
+      this.filterProfiles = perfiles_filtrados;
+    },
 
     handleGender(perfiles) {
       let generos_duplicados = perfiles.map((p) => p.gender);
@@ -126,7 +122,7 @@ export default {
         return registro_duplicados.indexOf(item) === index;
       });
       registro = registro.sort();
-      this.fr = registro;      
+      this.fr = registro;
     },
   },
 };
@@ -139,10 +135,10 @@ export default {
         <tr class="bg-info shadow-1-strong">
           <th></th>
           <button
-          
             type="button"
             class="mb-3 mt-3 btn bg-primary text-white shadow-5-strong"
-            @click="handleConsulta"          >
+            @click="handleConsulta"
+          >
             Consultar
           </button>
 
@@ -163,19 +159,29 @@ export default {
 
           <th scope="col">
             <label for="" class="me-3">Edad</label>
-            <select v-model="selectedAge" class="border-2 border-info rounded-3 pe-3" name="" id="">
+            <select
+              v-model="selectedAge"
+              class="border-2 border-info rounded-3 pe-3"
+              name=""
+              id=""
+            >
               <option value="">todos</option>
-              <option :value="edad"  v-for="edad in age" :key="edad">
+              <option :value="edad" v-for="edad in age" :key="edad">
                 {{ edad }}
               </option>
             </select>
           </th>
 
           <th scope="col">
-            <label  class="me-3"><strong>Genero</strong></label>
-            <select v-model="selectedGender" class="border-2 border-info rounded-3 pe-3" name="" id="">
-              <option value="">todos</option>              
-              <option :value="genero"  v-for="genero in gender" :key="genero">
+            <label class="me-3"><strong>Genero</strong></label>
+            <select
+              v-model="selectedGender"
+              class="border-2 border-info rounded-3 pe-3"
+              name=""
+              id=""
+            >
+              <option value="">todos</option>
+              <option :value="genero" v-for="genero in gender" :key="genero">
                 {{ genero }}
               </option>
             </select>
@@ -184,18 +190,28 @@ export default {
         <tr>
           <th scope="row">
             <label for="" class="me-3"><strong>Nacionalidad</strong></label>
-            <select v-model="selectedNat" class="border-2 border-info rounded-3 pe-3" name="" id="">
+            <select
+              v-model="selectedNat"
+              class="border-2 border-info rounded-3 pe-3"
+              name=""
+              id=""
+            >
               <option value="">todas</option>
-              <option :value="item"  v-for="item in nat" :key="item">
+              <option :value="item" v-for="item in nat" :key="item">
                 {{ item }}
               </option>
             </select>
           </th>
           <td scope="row">
             <label for="" class="me-3"><strong>F/Nacimiento</strong></label>
-            <select v-model="selectedFn" class="border-2 border-info rounded-3 pe-3" name="" id="">
+            <select
+              v-model="selectedFn"
+              class="border-2 border-info rounded-3 pe-3"
+              name=""
+              id=""
+            >
               <option value="">todas</option>
-              <option :value="item"  v-for="item in fn" :key="item">
+              <option :value="item" v-for="item in fn" :key="item">
                 {{ item }}
               </option>
             </select>
@@ -203,9 +219,14 @@ export default {
 
           <td scope="row">
             <label for="" class="me-3"><strong>F/Registro</strong></label>
-            <select v-model="selectedFr" class="border-2 border-info rounded-3 pe-3" name="" id="">
+            <select
+              v-model="selectedFr"
+              class="border-2 border-info rounded-3 pe-3"
+              name=""
+              id=""
+            >
               <option value="">todas</option>
-              <option :value="item"  v-for="item in fr" :key="item">
+              <option :value="item" v-for="item in fr" :key="item">
                 {{ item }}
               </option>
             </select>
@@ -215,10 +236,11 @@ export default {
         <tr>
           <th scope="row"></th>
           <button
+            @click="handleFiltro"
             type="button"
             class="me-2 mb-2 mt-2 btn bg-primary text-white shadow-4-strong"
           >
-            <i class="fas fa-filter me-4" @click="handleFiltro"></i><strong>Filtrar Datos</strong>
+            <i class="fas fa-filter me-4"></i><strong>Filtrar Datos</strong>
           </button>
           <button
             type="button"
@@ -259,15 +281,21 @@ export default {
       <tbody>
         <tr
           class="d-flex align-items-center justify-content-around text-center"
-          v-for="(profile, index) in filterProfiles" :key="index"
+          v-for="(profile, index) in filterProfiles"
+          :key="index"
         >
-          <td><router-link :to="{name: 'perfil', params: {perfil: profile.login.uuid}  }">Perfil</router-link></td>
-          <td>{{profile.name.first}}</td>
-          <td>{{profile.dob.age}}</td>
-          <td>{{profile.gender}}</td>
-          <td>{{profile.nat}}</td>
-          <td>{{profile.dob.date}}</td>
-          <td>{{profile.registered.date}}</td>
+          <td>
+            <router-link
+              :to="{ name: 'perfil', params: { perfil: profile.login.uuid } }"
+              >Perfil</router-link
+            >
+          </td>
+          <td>{{ profile.name.first }}</td>
+          <td>{{ profile.dob.age }}</td>
+          <td>{{ profile.gender }}</td>
+          <td>{{ profile.nat }}</td>
+          <td>{{ profile.dob.date }}</td>
+          <td>{{ profile.registered.date }}</td>
         </tr>
       </tbody>
     </table>

@@ -3,9 +3,36 @@ export default {
   data() {
     return {
       profile: {},
+      yellowStar: false,
     };
   },
-  methods: {},
+  methods: {
+    handleFav() {
+      let nombreDePerfil = JSON.stringify(this.profile);
+      let perfilDeLocalStore = JSON.parse(localStorage.getItem(nombreDePerfil));
+      let isProfileFavorite = perfilDeLocalStore.estrella;
+      if (perfilDeLocalStore.estrella === true) {
+        // estrella en amarillo
+        this.yellowStar = false;
+
+        let objeto = {
+          perfil: this.profile,
+          estrella: false,
+        };
+        // guardarlo en localStore
+        localStorage.setItem(nombreDePerfil, JSON.stringify(objeto));
+      } else {
+        this.yellowStar = true;
+
+        let objeto = {
+          perfil: this.profile,
+          estrella: true,
+        };
+        // guardarlo en localStore
+        localStorage.setItem(nombreDePerfil, JSON.stringify(objeto));
+      }
+    },
+  },
   mounted() {
     let perfiles = JSON.parse(localStorage.getItem("profiles"));
     let profile = null;
@@ -14,6 +41,30 @@ export default {
         return perfil.login.uuid == this.$route.params.perfil;
       });
       this.profile = profile[0];
+
+      let nombreDePerfil = JSON.stringify(this.profile);
+      let isProfileInLocalStore = localStorage.getItem(nombreDePerfil);
+      if (isProfileInLocalStore) {
+        // revisar si el perfil es favorito o no
+        let perfilDeLocalStore = JSON.parse(
+          localStorage.getItem(nombreDePerfil)
+        );
+        let isProfileFavorite = perfilDeLocalStore.estrella;
+        if (isProfileFavorite) {
+          // estrella en amarillo
+          this.yellowStar = true;
+        }
+
+        // console.log("existe el perfil")
+      } else {
+        let objeto = {
+          perfil: this.profile,
+          estrella: false,
+        };
+        // guardarlo en localStore
+        localStorage.setItem(nombreDePerfil, JSON.stringify(objeto));
+        // console.log("no existe el perfil en LS")
+      }
     }
   },
 };
@@ -34,7 +85,11 @@ export default {
         <h5 class="card-title">Nombre:</h5>
         <p>{{ profile?.name?.first }}</p>
         <div>
-          <i class="fas fa-star text-warning"></i>
+          <i
+            @click="handleFav"
+            class="fas fa-star"
+            :class="yellowStar ? 'text-warning' : ''"
+          ></i>
         </div>
       </div>
 
