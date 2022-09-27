@@ -265,22 +265,23 @@ export default {
     <table
       class="d-flex flex-column table text-center shadow-4-strong square rounded-8"
     >
-      <thead class="bg-info shadow-1-strong">
+      <thead class="bg-info shadow-1-strong ">
         <tr
-          class="d-flex align-items-center justify-content-around text-center"
+          class=" mb-1 d-flex align-items-center justify-content-around text-center"
         >
           <th>Ver Perfil</th>
           <th>Nombre</th>
-          <th>Genero</th>
           <th>Edad</th>
+          <th>Genero</th>
           <th>Nacion</th>
-          <th>F/Nacim.</th>
-          <th>F/Regis</th>
+          <th>fecha de Nacimiento</th>
+          <th>Fecha de Registro</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody >
         <tr
-          class="d-flex align-items-center justify-content-around text-center"
+          class=" mb-1 d-flex align-items-center justify-content-around text-center"
+          
           v-for="(profile, index) in filterProfiles"
           :key="index"
         >
