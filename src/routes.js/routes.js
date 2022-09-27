@@ -6,15 +6,20 @@ import Perfil from '../pages/Perfil.vue'
 const routes = [
   {
     path:'/',
-    component:Principal
+    name:'principal',
+    component: () => import('../pages/Principal.vue')
   },
   {
-    path:'/perfil',
-    component:Perfil
+    path:'/perfil/:perfil',
+    name: 'perfil',
+    props: true,
+    component: () => import('../pages/Perfil.vue')
   },
   {
     path:'/favoritos',
-    component:Favoritos
+    name:'favoritos',
+    props: true,
+    component: () => import('../pages/Favoritos.vue')
   }
 ]
 

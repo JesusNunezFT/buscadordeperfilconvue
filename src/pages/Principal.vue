@@ -261,13 +261,13 @@ export default {
           class="d-flex align-items-center justify-content-around text-center"
           v-for="(profile, index) in filterProfiles" :key="index"
         >
-          <td><router-link to="/perfil">Perfil</router-link></td>
+          <td><router-link :to="{name: 'perfil', params: {perfil: profile.login.uuid}  }">Perfil</router-link></td>
           <td>{{profile.name.first}}</td>
           <td>{{profile.dob.age}}</td>
-          <td>38</td>
-          <td>Vnzla</td>
-          <td>1984</td>
-          <td>2022</td>
+          <td>{{profile.gender}}</td>
+          <td>{{profile.nat}}</td>
+          <td>{{profile.dob.date}}</td>
+          <td>{{profile.registered.date}}</td>
         </tr>
       </tbody>
     </table>
