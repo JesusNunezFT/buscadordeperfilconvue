@@ -67,7 +67,7 @@ export default {
         <tr >
           <th scope="row"></th>
           <button type="button" class="me-2 mb-2 mt-2 btn bg-primary text-white shadow-4-strong"><i class="fas fa-filter me-4"></i><strong>Fistral DAtos</strong></button>
-          <button type="button" class="me-2 mb-2 mt-2 btn bg-warning text-primary shadow-4-strong"><i class="fas fa-search me-4"></i><strong>Ver Favoritos</strong></button>
+          <button type="button" class="me-2 mb-2 mt-2 btn bg-warning text-primary shadow-4-strong"><i class="fas fa-search me-4"></i><strong><router-link to="/favoritos"> Ver Favoritos</router-link></strong></button>
 
           <td></td>
         </tr>
@@ -105,7 +105,7 @@ export default {
     </table>
   </div>
 
-  <router-link to="/perfil">Perfil</router-link>
+  
 </template>
 
 <style>
